@@ -49,17 +49,14 @@ export default function Form() {
         let itemsOutOfGrill = [];
         let remainingArea;
         const { height, width, count } = grillItem;
-        let itemArea = ((height * width) + 1) * count;
+        let itemArea = ((height * width)) * count;
         remainingArea = grillArea - itemArea
-        console.log(remainingArea);
         if (remainingArea > 0) {
             grillItems.push(grillItem)
         } else {
-            let updateItemCount = Math.floor(grillArea / ((height * width) + 1));
-            console.log({ updateItemCount });
+            let updateItemCount = Math.floor(grillArea / ((height * width)));
             grillItems.push({ ...grillItem, count: updateItemCount })
             let countOfOutOfGrillItems = count - updateItemCount;
-            console.log({ countOfOutOfGrillItems })
             itemsOutOfGrill = new Array(countOfOutOfGrillItems).fill(grillItem);
         }
         setGrillItem({ height: 0, width: 0, title: '', count: 0, });

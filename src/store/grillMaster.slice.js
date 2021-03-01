@@ -1,42 +1,21 @@
-// eslint-disable-next-line
 import { createSlice } from '@reduxjs/toolkit';
 
+function getMin(array, field) {
+    let lowest = Number.POSITIVE_INFINITY;
+    let tmp;
+    for (let i = array.length - 1; i >= 0; i--) {
+        tmp = array[i][field];
+        if (tmp < lowest) lowest = tmp;
+    }
+    return Number(lowest);
+}
 const initialState = {
     grill: {
         width: 0,
         height: 0,
-        grillItems: []
+        grillItems: [],
+        minHeight: 0
     },
-    // "grill": {
-    //     "width": 500,
-    //     "height": 200,
-    //     "grillItems": [
-    //         {
-    //             "width": 140,
-    //             "height": 140,
-    //             "count": 2,
-    //             "title": "Sausage"
-    //         },
-    //         {
-    //             "width": 130,
-    //             "height": 60,
-    //             "count": 4,
-    //             "title": "Tomato"
-    //         },
-    //         {
-    //             "width": 20,
-    //             "height": 10,
-    //             "count": 37,
-    //             "title": "Veal"
-    //         },
-    //         {
-    //             "width": 50,
-    //             "height": 30,
-    //             "count": 14,
-    //             "title": "Steak"
-    //         },         
-    //     ]
-    // },
     itemsOutOfGrill: []
 };
 
@@ -55,8 +34,10 @@ const grillMasterSlice = createSlice({
         setGrillItem(state, { payload }) {
             const grill = { ...state.grill }
             grill.grillItems = [...payload.grillItems];
+            grill.grillItems = grill.grillItems.sort((a, b) => ((a.height * a.width) > (b.height * b.width)) ? -1 : ((((b.height * b.width)) > (a.height * a.width)) ? 1 : 0))
+            grill["minHeight"] = getMin(grill?.grillItems, 'height')
             return {
-                ...state, grill
+                ...state, grill,
             }
         },
         setItemsOutOfGrill(state, { payload }) {

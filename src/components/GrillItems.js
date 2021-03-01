@@ -1,16 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
         backgroundColor: 'green',
+        // border: '1px solid #fff',
         borderRadius: '3px',
-        marginRight: '1px',
-        marginTop: '1px',
-        // display:'block'
+        float: 'left'
     }
 });
-export default function GrillItems({ width, height, title }) {
+export default function GrillItems({ width, height }) {
     const classes = useStyles();
     return (
         <div className={`${classes.root} grid-item`} style={{ width: Number(width), height: Number(height) }} >
